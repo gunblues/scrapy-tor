@@ -7,10 +7,9 @@ class TestSpider(scrapy.Spider):
     custom_settings = {
         'CONCURRENT_REQUESTS': 1,
         'DOWNLOAD_DELAY': 0,
-        # 'DOWNLOADER_MIDDLEWARES': {
-           # 'tutorial.middlewares.middlewares.TutorialDownloaderMiddleware': 543,
-           # 'tutorial.middlewares.Tor.TorMiddleware': 100,   
-        # }
+        'DOWNLOADER_MIDDLEWARES': {
+           'tutorial.middlewares.Tor.TorMiddleware': 100,   
+        }
     }
     def start_requests(self):
         url = 'http://checkip.amazonaws.com'
@@ -19,7 +18,6 @@ class TestSpider(scrapy.Spider):
             sleep(0.5)
 
     def parse(self, response):
-
         yield {
             'your ip': response.text
         }
